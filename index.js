@@ -3,8 +3,9 @@ var postcss = require('postcss');
 
 module.exports = postcss.plugin('postcss-class-prefix', classPrefix);
 
-function classPrefix(prefix, options) {
+function classPrefix(options) {
   options = options || {};
+  options.prefix = options.prefix || '';
 
   return function(root) {
 
@@ -24,7 +25,7 @@ function classPrefix(prefix, options) {
           if (classMatchesTest(clss, options.ignore) || clss.trim().length === 0) {
             return clss;
           }
-          return prefix + clss;
+          return options.prefix + clss;
         }).join('.');
       });
     });
